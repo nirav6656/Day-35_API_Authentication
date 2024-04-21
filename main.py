@@ -1,16 +1,19 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import requests
+api_key = "53ac5ab22e8be59da04ede6edfcff77c"
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+parameters = {
+    "lat":43.325989,
+    "lon":-79.798302,
+    "appid":"53ac5ab22e8be59da04ede6edfcff77c",
+    "cnt":4,
+}
+response = requests.get("https://api.openweathermap.org/data/2.5/forecast",params=parameters)
 
+weather_data = response.json()
+id = weather_data["list"][0]["weather"][0]["id"]
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+for hour_data in weather_data["list"]:
+    condition_code = hour_data["weather"][0]["id"]
+# if id < 700:
+#     print("Bring Umbrella")
